@@ -309,9 +309,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 1840515054860767411, guid: 17c290cc6b7a4bd469b62739fa2e7996, type: 3}
-  spawnInterval: 1
+  spawnInterval: 5
   objectRadius: 0.5
   isResource: 1
+  drones: []
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1122,7 @@ MonoBehaviour:
   spawnInterval: 5
   objectRadius: 0.5
   isResource: 0
+  drones: []
 --- !u!1 &1382773115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1193,7 @@ MonoBehaviour:
   spawnInterval: 5
   objectRadius: 0.5
   isResource: 0
+  drones: []
 --- !u!1 &1578133218
 GameObject:
   m_ObjectHideFlags: 0

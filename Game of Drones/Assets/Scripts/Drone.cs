@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,10 +9,14 @@ public class Drone : MonoBehaviour
 
     [SerializeField]
     private Material blueMat;
+
     [SerializeField]
     private Material redMat;
+
     [SerializeField]
     private Renderer body;
+
+    public List<GameObject> emotions = new List<GameObject>();
 
     private GameManager gManager;
 
@@ -43,15 +48,21 @@ public class Drone : MonoBehaviour
     {
         if (ResourceTarget == null)
         {
+            //If have no purpose, find it
             FindResource();
         }
 
         if (HoldingResource)
         {
+            //If have resource, bring it back
             BringResource();
         }
     }
 
+    /// <summary>
+    /// Checks whether drone entered the base or grabbed the resource
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Resource") && !HoldingResource)
@@ -66,6 +77,10 @@ public class Drone : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pings every second to find the closest resource
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Ping()
     {
         while (true)
@@ -83,8 +98,12 @@ public class Drone : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Finds the closest resource, and targets it
+    /// </summary>
     private void FindResource()
     {
+        SwitchEmotion(2);
         GameObject[] _resources = GameObject.FindGameObjectsWithTag("Resource");
         GameObject _resourceToGrab = null;
         float _minDist = Mathf.Infinity;
@@ -100,9 +119,18 @@ public class Drone : MonoBehaviour
         }
 
         if (_resourceToGrab != null)
+        {
             ResourceTarget = _resourceToGrab.transform;
+            SwitchEmotion(0);
+        }
     }
 
+    /// <summary>
+    /// If reached the initial resource, wait a little and destroy it
+    /// If found a better resource on the way, change course and do the same
+    /// </summary>
+    /// <param name="res"></param>
+    /// <returns></returns>
     private IEnumerator GrabResource(GameObject res)
     {
         if (ResourceTarget == res)
@@ -123,8 +151,24 @@ public class Drone : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pathfinds towards the base if has a resource
+    /// </summary>
     private void BringResource()
     {
+        SwitchEmotion(1);
         Agent.SetDestination(StartingPosition);
+    }
+
+    /// <summary>
+    /// 0 == Found, moving
+    /// 1 == Grabbed, bringing
+    /// 2 == Searching
+    /// </summary>
+    /// <param name="param"></param>
+    private void SwitchEmotion(int param)
+    {
+        emotions.ForEach(e => { e.SetActive(false); });
+        emotions[param].SetActive(true);
     }
 }

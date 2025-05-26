@@ -9,7 +9,7 @@ public class Base : MonoBehaviour
     private Spawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         gManager = FindFirstObjectByType<GameManager>();
 
@@ -18,9 +18,8 @@ public class Base : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }
 

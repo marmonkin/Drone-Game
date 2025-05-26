@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -13,6 +11,8 @@ public class Spawner : MonoBehaviour
     public bool isResource;
 
     public List<GameObject> drones = new List<GameObject>();
+
+    private List<GameObject> resourses = new List<GameObject>();
 
     private int MaxAttempts = 10;
 
@@ -33,26 +33,11 @@ public class Spawner : MonoBehaviour
             StartCoroutine(SpawnResource());
     }
 
-    private IEnumerator SpawnResource()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(spawnInterval);
-
-            Vector3 spawnPoint;
-            bool found = FindFreePosition(out spawnPoint);
-
-            if (found)
-            {
-                Instantiate(objectToSpawn, spawnPoint, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogWarning("No free position found.");
-            }
-        }
-    }
-
+    /// <summary>
+    /// Locate a good position to spawn in the area
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     private bool FindFreePosition(out Vector3 position)
     {
         Vector3 size = Vector3.Scale(BoxCollider.size, transform.lossyScale);
@@ -88,6 +73,35 @@ public class Spawner : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Starts spawning resources forever
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator SpawnResource()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+
+            Vector3 spawnPoint;
+            bool found = FindFreePosition(out spawnPoint);
+
+            if (found)
+            {
+                GameObject _resourse = Instantiate(objectToSpawn, spawnPoint, Quaternion.identity);
+                resourses.Add(_resourse);
+            }
+            else
+            {
+                Debug.LogWarning("No free position found.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spawns a drone and assigns the correct faction to it
+    /// </summary>
+    /// <param name="faction"></param>
     public void SpawnDrone(Faction faction)
     {
         GameObject _newDrone = Instantiate(objectToSpawn, this.transform.position, Quaternion.identity);

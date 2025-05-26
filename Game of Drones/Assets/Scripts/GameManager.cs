@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
     }
 
+    /// <summary>
+    /// Adds a point to the faction who brought a resource to their base
+    /// </summary>
+    /// <param name="faction"></param>
     public void GainResource(Faction faction)
     {
         if (faction == Faction.Blue)
