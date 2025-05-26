@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c0bb75f24401a4eb1ad50bf4901178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faction: 0
+  blueMat: {fileID: 2100000, guid: 938e7b31f746eec4981a30a266ff1aa2, type: 2}
+  redMat: {fileID: 2100000, guid: c92db18abac79c740ba577f51c562af7, type: 2}
+  body: {fileID: 7300983936183683388}
 --- !u!195 &-5942966781773665971
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -6,23 +6,37 @@ public class Drone : MonoBehaviour
 {
     public Faction faction;
 
+    [SerializeField]
+    private Material blueMat;
+    [SerializeField]
+    private Material redMat;
+    [SerializeField]
+    private Renderer body;
+
+
     private Transform ResourceTarget;
     private NavMeshAgent Agent;
 
     private bool HoldingResource = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Ping());
+
+        if (faction == Faction.Blue)
+        {
+            body.material = blueMat;
+        }
+        else body.material = redMat;
     }
 
     private void Update()
     {
-        if (HoldingResource)
+        if (ResourceTarget == null)
         {
-            
+            FindResource();
         }
     }
 
@@ -73,7 +87,6 @@ public class Drone : MonoBehaviour
 
     private IEnumerator GrabResource(GameObject res)
     {
-
         if (ResourceTarget == res)
         {
             yield return new WaitForSeconds(2);

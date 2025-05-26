@@ -14,9 +14,7 @@ public class Spawner : MonoBehaviour
 
     private BoxCollider BoxCollider;
 
-
-
-    void Awake()
+    private void Awake()
     {
         BoxCollider = GetComponent<BoxCollider>();
         if (BoxCollider == null)
@@ -25,9 +23,9 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
-        if(isResource)
+        if (isResource)
             StartCoroutine(SpawnResource());
     }
 
@@ -88,6 +86,9 @@ public class Spawner : MonoBehaviour
 
     public void SpawnDrone(Faction faction)
     {
+        GameObject _newDrone = Instantiate(objectToSpawn, this.transform.position, Quaternion.identity);
 
+        Drone _droneScript = _newDrone.GetComponent<Drone>();
+        _droneScript.faction = faction;
     }
 }
