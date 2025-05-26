@@ -13,6 +13,9 @@ public class Drone : MonoBehaviour
     [SerializeField]
     private Renderer body;
 
+    private GameManager gManager;
+
+    private Vector3 StartingPosition;
 
     private Transform ResourceTarget;
     private NavMeshAgent Agent;
@@ -22,6 +25,10 @@ public class Drone : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        StartingPosition = this.transform.position;
+
+        gManager = FindFirstObjectByType<GameManager>();
+
         Agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Ping());
 
@@ -38,13 +45,24 @@ public class Drone : MonoBehaviour
         {
             FindResource();
         }
+
+        if (HoldingResource)
+        {
+            BringResource();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Resource" && !HoldingResource)
+        if (other.CompareTag("Resource") && !HoldingResource)
         {
             StartCoroutine(GrabResource(other.gameObject));
+        }
+
+        if (other.CompareTag("Base") && HoldingResource)
+        {
+            HoldingResource = false;
+            gManager.GainResource(faction);
         }
     }
 
@@ -103,5 +121,10 @@ public class Drone : MonoBehaviour
             HoldingResource = true;
             ResourceTarget = null;
         }
+    }
+
+    private void BringResource()
+    {
+        Agent.SetDestination(StartingPosition);
     }
 }

@@ -4,13 +4,15 @@ public class Base : MonoBehaviour
 {
     public Faction faction;
 
-    public GameManager gManager;
+    private GameManager gManager;
 
     private Spawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gManager = FindFirstObjectByType<GameManager>();
+
         spawner = GetComponentInChildren<Spawner>();
         spawner.SpawnDrone(faction);
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Resource
   - Drone
+  - Base
   layers:
   - Default
   - TransparentFX

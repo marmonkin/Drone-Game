@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -9,6 +11,8 @@ public class Spawner : MonoBehaviour
     public float objectRadius = 0.5f;
 
     public bool isResource;
+
+    public List<GameObject> drones = new List<GameObject>();
 
     private int MaxAttempts = 10;
 
@@ -90,5 +94,7 @@ public class Spawner : MonoBehaviour
 
         Drone _droneScript = _newDrone.GetComponent<Drone>();
         _droneScript.faction = faction;
+
+        drones.Add(_newDrone);
     }
 }

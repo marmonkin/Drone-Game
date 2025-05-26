@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 33604862}
   m_Layer: 0
   m_Name: BlueBase
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
-  gManager: {fileID: 0}
 --- !u!1 &99975972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1237,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bluePoints: 0
   redPoints: 0
+  blueBase: {fileID: 33604857}
+  redBase: {fileID: 1692438746}
+  Poof: {fileID: 178138834019634348, guid: d2d0d598321a5e34f8c4b56d6ba2de56, type: 3}
 --- !u!1 &1692438746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1255,7 @@ GameObject:
   - component: {fileID: 1692438751}
   m_Layer: 0
   m_Name: RedBase
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1361,7 +1363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
-  gManager: {fileID: 0}
 --- !u!1 &1774834230
 GameObject:
   m_ObjectHideFlags: 0
