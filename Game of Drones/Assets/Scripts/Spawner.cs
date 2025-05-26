@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
 
 
 
-    private void Awake()
+    void Awake()
     {
         BoxCollider = GetComponent<BoxCollider>();
         if (BoxCollider == null)
@@ -25,13 +25,13 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         if(isResource)
             StartCoroutine(SpawnResource());
     }
 
-    IEnumerator SpawnResource()
+    private IEnumerator SpawnResource()
     {
         while (true)
         {
@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    bool FindFreePosition(out Vector3 position)
+    private bool FindFreePosition(out Vector3 position)
     {
         Vector3 size = Vector3.Scale(BoxCollider.size, transform.lossyScale);
         Vector3 center = transform.TransformPoint(BoxCollider.center);
@@ -84,5 +84,10 @@ public class Spawner : MonoBehaviour
 
         position = Vector3.zero;
         return false;
+    }
+
+    public void SpawnDrone(Faction faction)
+    {
+
     }
 }
